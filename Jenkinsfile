@@ -6,17 +6,16 @@ pipeline {
     }
     environment {
         NEXUS_VERSION = "nexus3"
-        NEXUS-USER = "admin"
-        NEXUS-PASS = "admin123"
+        NEXUS_USER = "admin"
+        NEXUS_PASS = "admin123"
         NEXUS_PROTOCOL = "http"
         NEXUSIP = "172.31.11.32"
         NEXUSPORT = "8081"
-        RELEASE-REPO = "vprofile-release"
-        CENTRAL-REPO = "vpro-maven-central"
-        SNAP-REPO = "vprofile-snapshot"
-	    NEXUS-GRP-REPO  = "vprofile-grp-repo"
+        RELEASE_REPO = "vprofile-release"
+        CENTRAL_REPO = "vpro-maven-central"
+        SNAP_REPO = "vprofile-snapshot"
+	    NEXUS_GRP_REPO  = "vprofile-grp-repo"
         NEXUS_CREDENTIAL_ID = "nexuslogin"
-        ARTVERSION = "${env.BUILD_ID}"
     }
     stages{    
         stage('BUILD'){
