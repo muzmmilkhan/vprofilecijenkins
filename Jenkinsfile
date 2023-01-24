@@ -14,7 +14,7 @@ pipeline {
         RELEASE_REPO = "vprofile-release"
         CENTRAL_REPO = "vpro-maven-central"
         SNAP_REPO = "vprofile-snapshot"
-	    NEXUS_GRP_REPO  = "vprofile-grp-repo"
+	    NEXUS_GRP_REPO  = "vpro-maven-group"
         NEXUS_CREDENTIAL_ID = "nexuslogin"
     }
     stages{    
