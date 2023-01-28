@@ -4,16 +4,12 @@ def COLOR_MAP = [
 ]
 pipeline {
 	agent any
-	tools {
-        jdk "openjdk15"
-        maven "mvn"
-    }
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_USER = "admin"
         NEXUS_PASS = "admin123"
         NEXUS_PROTOCOL = "http"
-        NEXUSIP = "172.31.11.32"
+        NEXUSIP = "172.31.13.249"
         NEXUSPORT = "8081"
         NEXUS_LOGIN = 'nexuslogin'
         RELEASE_REPO = "vprofile-release"
@@ -101,7 +97,7 @@ pipeline {
             post {
                 always {
                     echo 'Slack Notifications.'
-                    slackSend channel: '#devops-machin-learning',
+                    slackSend channel: '#algo-eng',
                     color: COLOR_MAP[currentBuild.currentResult],
                     message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
                 }
@@ -110,3 +106,5 @@ pipeline {
         
     }
 }
+
+
