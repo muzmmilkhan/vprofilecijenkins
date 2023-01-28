@@ -19,9 +19,9 @@ pipeline {
         NEXUS_CREDENTIAL_ID = "nexuslogin"
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
-        registryCredential = 'ecr:us-east-1:awscreds'
-        appRegistry = '951401132355.dkr.ecr.us-west-1.amazonaws.com/vprofileappimg'
-        vprofileRegistry = "https://951401132355.dkr.ecr.us-west-1.amazonaws.com"
+        registryCredential = 'ecr:us-east-2:awscreds'
+        appRegistry = '467670245764.dkr.ecr.us-east-2.amazonaws.com/vproapp'
+        vprofileRegistry = "https://467670245764.dkr.ecr.us-east-2.amazonaws.com"
     }
 
     stages{    
@@ -101,6 +101,24 @@ pipeline {
                 )
             }
 
+        }
+        stage('Build App Image') {
+            steps {
+                script {
+                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/multistage/")
+                }
+            }
+        }
+        
+        stage('Upload App Image') {
+          steps{
+            script {
+              docker.withRegistry( vprofileRegistry, registryCredential ) {
+                dockerImage.push("$BUILD_NUMBER")
+                dockerImage.push('latest')
+              }
+            }
+          }
             post {
                 always {
                     echo 'Slack Notifications.'
@@ -110,6 +128,7 @@ pipeline {
                 }
             }	
         }
+        
         
     }
 }
