@@ -20,6 +20,7 @@ pipeline {
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
     }
+    
     stages{    
         stage('BUILD'){
             steps {
@@ -67,6 +68,7 @@ pipeline {
               }
             }
         }
+
         stage("Quality Gate") {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
@@ -76,6 +78,7 @@ pipeline {
                 }
             }
         }
+
         stage("UploadArtifact"){
             steps{
                 nexusArtifactUploader(
@@ -94,7 +97,7 @@ pipeline {
                   ]
                 )
             }
-            
+
             post {
                 always {
                     echo 'Slack Notifications.'
